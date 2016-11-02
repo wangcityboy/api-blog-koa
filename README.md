@@ -1,25 +1,29 @@
-安装 node-gyp
-npm install -g node-gyp
-
-NODE_ENV=production pm2 start --name dictServer --merge-logs --node-args="--harmony"  /data/html/mahoo.cn/api/dictServer.js  -u www
-NODE_ENV=production pm2 start --name apiServer --merge-logs --node-args="--harmony" /data/html/mahoo.cn/api/apiServer.js  -u www
-
-NODE_ENV=production pm2 start --name o2oService --merge-logs --node-args="--harmony" /data/html/mahoo.cn/api/o2o/index.js  -u www
-
-// 开发环境
-pm2 start --name dictServer --merge-logs --node-args="--harmony" --watch /data/html/mahoo.cn/api/dictServer.js  -u root
-pm2 start --name apiServer --merge-logs --node-args="--harmony" --watch /data/html/mahoo.cn/api/apiServer.js  -u root
-pm2 start --name o2oService --merge-logs --node-args="--harmony" --watch /data/html/mahoo.cn/api/o2o/index.js  -u root
-
-set NODE_ENV=development
-
-<<<<<<< .mine
-============================
-iptables -A INPUT -s 192.168.61.0/24 -p tcp --destination-port 27017 -m state --state NEW,ESTABLISHED -j ACCEPT
-iptables -A OUTPUT -d 192.168.61.0/24 -p tcp --source-port 27017 -m state --state ESTABLISHED -j ACCEPT
-=======
-pm2 start --name apiOnly --merge-logs --node-args="--harmony" --watch /data/html/mahoo.cn/api/apiOnly.js  -i 4>>>>>>> .r1379
+### 来由
+ - 16年，我对后台开发有了兴趣，那个时候我正在一家公司上班，在工作过程中，慢慢接触并熟悉了后台接口开发，下班后，闲着没事，就想着把之前用php语言开发的接口改进一下，于是乎用nodejs来开发，当时公司用的是koa框架，这个后台接口也是结合公司的框架来开发的；<br>
+-  学起来js语法并不难，之前在大学里都有学过，之前做网站也有了解，因此看了几下视频，慢慢动手自己写了一点，就有了今天的这个小的api接口，业务逻辑并不复杂，所以基本上能满足我的移动端开发要求；<br>
 
 
+### 运行环境要求：
+-服务器与主机环境：Mac os <br>
+-数据库：Mysql 5.0以上<br>
+-Redis:需要配置好redis服务
 
-1 启动redis
+
+### 安装步骤：
+- 将代码下载到本地，然后进入到代码所在目录，安装相关的库到目录：npm i
+- 配置好数据库连接后，就开始启动服务
+
+### 更新日志：<br/>
+    2016-11-1:
+    1.首次公开，并分享到github.com，希望大家提意见。
+    
+    2015-4-3:
+    1.首次建站，并在网上找到一些模板，就这样，一个网站就这样建好了，之后我上传到云虚拟主机中。
+    
+
+###PS:
+    如果需要数据库数据结构的，请联系本人，谢谢。
+
+
+
+
