@@ -14,37 +14,37 @@ module.exports = {
    */
   mysqlServers: [
     {
-      host: (process.env.CS_MYSQL || 'hdm14969059.my3w.com'),
+      //host: (process.env.CS_MYSQL || 'hdm14969059.my3w.com'),
+      //port: 3306,
+      //user: 'hdm14969059',
+      //password: 'whf324512',
+      host: (process.env.CS_MYSQL || '127.0.0.1'),
       port: 3306,
-      user: 'hdm14969059',
-      password: 'whf324512',
-      //host: (process.env.CS_MYSQL || '127.0.0.1'),
-      //port: 3307,
-      //user: 'root',
-      //password: '123456'
+      user: 'root',
+      password: 'KeYpZrZx'
     }
   ],
-  mysqlDatabase: 'hdm14969059_db',
-  //mysqlDatabase:'test',
+  //mysqlDatabase: 'hdm14969059_db',
+  mysqlDatabase:'guest',
   mysqlMaxConnections: 20,
   mysqlQueryTimeout: 5000,
 
   // mongodb 设置
   mongo: {
-    uri: 'mongodb://192.168.61.10:27017/yueniapp',
+    uri: 'mongodb://127.0.0.1:27017/yunfeiapp',
     options: {
       db: {native_parser: true},
       auto_reconnect: 1,
       server: {poolSize: 4},
-      user: 'yueniapp',
-      pass: 'kjhDh38273erdfEd'
+      //user: 'app',
+      //pass: 'kjhDh38273erdfEd'
     }
   },
 
   // redis config
   // use for koa-limit module as storage
   redis: {
-    host: 'localhost',
+    host: '127.0.0.1',
     port: 6379,
     options: {
       //auth_pass: 'd53aOe1F9q'
