@@ -163,7 +163,7 @@ exports.getCategoryItem = function*(param){
     //get child
     let child = yield mysql.query('select * from tg_classify where tg_parent = ?',[param]);
     return {parent:par,child:child};
-};git
+};
 
 
 
