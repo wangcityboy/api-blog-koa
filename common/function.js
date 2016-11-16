@@ -159,10 +159,10 @@ exports.loginLog = function (uid, origin, ip,region) {
  * @ip
  */
 exports.getCategoryItem = function*(param){
-    let parent = yield mysql.queryOne('select * from tg_classify where tg_id = ?',[param]);
+    let par = yield mysql.queryOne('select * from tg_classify where tg_id = ?',[param]);
     //get child
     let child = yield mysql.query('select * from tg_classify where tg_parent = ?',[param]);
-    return {parent:parent,child:child};
+    return {parent:par,child:child};
 };git
 
 
