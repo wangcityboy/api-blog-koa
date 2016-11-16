@@ -6,7 +6,7 @@
 ### 运行环境要求：
 -主机环境：Mac os <br>
 -数据库：Mysql 5.0以上<br>
--Redis:需要在本地配置好redis服务并启动：src/redis-server
+-Redis:需要在本地配置好redis服务并启动：
 
 
 ### 安装步骤：

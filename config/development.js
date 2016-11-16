@@ -39,7 +39,7 @@ module.exports = {
   // redis config
   // use for koa-limit module as storage
   redis: {
-    host: '120.25.83.199',
+    host: '127.0.0.1',
     port: 6379,
     options: {
       //auth_pass: 'd53aOe1F9q'
