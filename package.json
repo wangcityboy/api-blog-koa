@@ -44,7 +44,7 @@
     "slashes": "^1.0.5",
     "thunkify": "*",
     "thunkify-wrap": "*",
-    "uid2": "*",
+    "uid2": "0.0.2",
     "underscore": "*",
     "underscore.string": "*",
     "upyun-core": "*",
