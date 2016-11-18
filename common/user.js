@@ -39,7 +39,7 @@ exports.getAdvertiselist = function*(Env){
 exports.getDirslist = function*(Env){
     var fields = Env.I;
     var type = fields.type;
-    let photoDirData = yield MUsers.getDirslist("tg_id,tg_name,tg_password,tg_content,tg_face,tg_dir,tg_date", "tg_type=?", [type]);
+    let photoDirData = yield MUsers.getDirlist("tg_id,tg_name,tg_password,tg_content,tg_face,tg_dir,tg_date", "tg_type=?", [type]);
     return F.returnMsg('200', '相册列表返回成功', 3, photoDirData);
 }
 
@@ -52,6 +52,27 @@ exports.getPhotoslist = function*(Env){
     let photosData = yield MUsers.getPhotoslist("tg_id,tg_name,tg_url,tg_content,tg_readcount,tg_username,tg_date", "tg_sid=?", [sid]);
     return F.returnMsg('200', '相片列表返回成功', 3, photosData);
 }
+
+/*
+ * @TODO 获取菜单分类
+ * @uid
+ * @origin 来源: 分类ID
+ * @ip
+ */
+exports.getMenu = function*(param){
+    //console.log(Env);
+    //var fields = Env.I;
+    //console.log("fields=",fields);
+    //var sid = fields.parent;
+    let par = yield mysql.queryOne('select * from tg_menu where tg_id = ?',[param]);
+    //let par = yield MUsers.getMenu("tg_id,tg_title,tg_type,tg_url,tg_topimage,tg_parent","tg_id",[param]);
+    console.log("par="+par);
+
+    //get child
+    let child = yield mysql.query('select * from tg_menu where tg_parent = ?',[param]);
+    console.log("child="+child);
+    return {parent:par,child:child};
+};
 
 /*
  *@todo  API18 日志列表

@@ -28,6 +28,7 @@ var pool = mysql.createPool({
 exports.pool = pool;
 
 exports.query = function (sql, values, cb) {
+    console.log(sql);
     if (typeof values === 'function') {
         cb = values;
         values = null;

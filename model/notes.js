@@ -12,9 +12,9 @@ var mysql = require('../common/mysql.js');
  @values 条件值   格式为[value1，value2]
  */
 exports.getNotes = function*(fields, where, values) {
-    var notes = yield mysql.query("select " + fields + " from tg_article where " + where, values);
-    if (notes.length > 0) {
-        return notes;
+    var data = yield mysql.query("select " + fields + " from tg_article where " + where, values);
+    if (data.length > 0) {
+        return data;
     }
     return [];
 };

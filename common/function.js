@@ -152,18 +152,7 @@ exports.loginLog = function (uid, origin, ip,region) {
     });
 };
 
-/*
- * @TODO 获取菜单分类
- * @uid
- * @origin 来源: 分类ID
- * @ip
- */
-exports.getCategoryItem = function*(param){
-    let par = yield mysql.queryOne('select * from tg_classify where tg_id = ?',[param]);
-    //get child
-    let child = yield mysql.query('select * from tg_classify where tg_parent = ?',[param]);
-    return {parent:par,child:child};
-};
+
 
 
 

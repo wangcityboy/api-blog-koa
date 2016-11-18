@@ -12,9 +12,9 @@ var mysql = require('../common/mysql.js');
  @values 条件值   格式为[value1，value2]
  */
 exports.getUser = function*(fields, where, values) {
-    var user = yield mysql.query("select " + fields + " from tg_user where " + where, values);
-    if (user.length > 0) {
-        return user;
+    var data = yield mysql.query("select " + fields + " from tg_user where " + where, values);
+    if (data.length > 0) {
+        return data;
     }
     return [];
 };
@@ -35,6 +35,19 @@ exports.editUser = function*(fields, where, values) {
 };
 
 
+/*
+ @todo 获取用户菜单列表
+ @fields 修改字段 格式为field1=?，field2=?...
+ @where  查找条件 格式为field1=? and field=?
+ @values 条件值   格式为[value1，value2]
+ */
+exports.getMenu = function*(fields, where, values) {
+    var data = yield mysql.query("select " + fields + " from tg_menu where " + where, values);
+    if (data.affectedRows > 0) {
+        return data;
+    }
+    return [];
+};
 
 /*
  @todo 获取广告轮播图
@@ -43,9 +56,9 @@ exports.editUser = function*(fields, where, values) {
  @values 条件值   格式为[value1，value2]
  */
 exports.getAdvertiselist = function*(fields, where, values) {
-    var advertise = yield mysql.query("select " + fields + " from tg_advertise where " + where, values);
-    if (advertise.length > 0) {
-        return advertise;
+    var data = yield mysql.query("select " + fields + " from tg_advertise where " + where, values);
+    if (data.length > 0) {
+        return data;
     }
     return [];
 };
@@ -59,9 +72,9 @@ exports.getAdvertiselist = function*(fields, where, values) {
  @values 条件值   格式为[value1，value2]
  */
 exports.getDirlist = function*(fields, where, values) {
-    var photoDirs = yield mysql.query("select " + fields + " from tg_dir where " + where, values);
-    if (photoDirs.length > 0) {
-        return photoDirs;
+    var data = yield mysql.query("select " + fields + " from tg_dir where " + where, 0);
+    if (data.length > 0) {
+        return data;
     }
     return [];
 };
@@ -74,9 +87,9 @@ exports.getDirlist = function*(fields, where, values) {
  @values 条件值   格式为[value1，value2]
  */
 exports.getPhotoslist = function*(fields, where, values) {
-    var photos = yield mysql.query("select " + fields + " from tg_photo where " + where, values);
-    if (photos.length > 0) {
-        return photos;
+    var data = yield mysql.query("select " + fields + " from tg_photo where " + where, values);
+    if (data.length > 0) {
+        return data;
     }
     return [];
 };

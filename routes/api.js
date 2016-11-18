@@ -4,6 +4,7 @@
 'use strict';
 var F = require('../common/function');
 var C = require('../config/index');
+
 var mysql = require('../common/mysql');
 var commUser = require('../common/user');
 
@@ -40,29 +41,28 @@ module.exports = function (app) {
     /*
      @todo API01 获取侧边栏菜单数据
      */
-  app.get(apiPre + '/:apiVer/category', function*() {
+  app.get(apiPre + '/:apiVer/menu', function*() {
       let result;
       this.I = yield F.Init(this, [1]);
       if (this.I.errors) {
           this.jsonp = F.returnMsg(400, this.I.errors.msg, this.I.errors.level);
       } else {
-          console.log(this.I.parent);
           let param = parseInt(this.I.parent);
           if(param == 0){
               result = [];
-              let parent = yield mysql.query('select * from tg_classify where tg_parent = ?',[param]);
+              let parent = yield mysql.query('select * from tg_menu where tg_parent = ?',[param]);
               for(let i of parent){
-                  let obj = yield F.getCategoryItem(i.tg_id);
+                  let obj = yield commUser.getMenu(i.tg_id);
                   let tmpObj = obj.parent;
                   tmpObj.children = obj.child;
                   result.push(tmpObj);
               }
           }else if(param > 0){
-             let obj =  yield F.getCategoryItem(param);
+             let obj =  yield commUser.getMenu(param);
               result = obj.parent;
               result.children = obj.child;
           }
-          this.jsonp = F.returnMsg(200,'ok',1,result);
+          this.jsonp = F.returnMsg(200,'菜单数据返回成功',1,result);
       }
   });
 

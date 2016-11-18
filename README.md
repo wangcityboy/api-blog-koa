@@ -22,6 +22,8 @@
     2016-9-29:
     1.首次开发，并相应了开发了多个接口，目前是用在安卓应用开发上
     
+### 思路,eg:获取日志列表
+api.js[ app.get(apiPre + '/:apiVer/noteslist',function*() ] -> user.js[ exports.getNoteslist = function*(Env) ] -> notes.js[ exports.getNotes = function*(fields, where, values) ] 
 
 
 
