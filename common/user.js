@@ -83,7 +83,7 @@ exports.getNoteslist = function*(Env){
     if (classifyid == null){
         classifyid = "(10007,10008,10009,10010,10011,10012,10013,10014)";
     }
-    let noteData = yield MNotes.getNotes("tg_id,tg_username,tg_classify,tg_title,tg_content,tg_image,tg_readcount,tg_nickname,tg_date", "tg_classify=?", [classifyid]);
+    let noteData = yield MNotes.getNotes("tg_id,tg_username,tg_classify,tg_title,tg_content,tg_image,tg_readcount,tg_nickname,tg_date", "tg_classify in ?", [classifyid]);
     return F.returnMsg('200', '日记列表返回成功', 3, noteData);
 }
 
