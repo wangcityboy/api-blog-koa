@@ -9,8 +9,8 @@ var mysql = require('../common/mysql');
 var commUser = require('../common/user');
 
 module.exports = function (app) {
-  var self = this;
-  var apiPre = C.apiPre;
+    var self = this;
+    var apiPre = C.apiPre;
 
     /*
      @todo API01 获取短信验证码
@@ -25,7 +25,7 @@ module.exports = function (app) {
     });
 
     /*
-     @todo API02 获取短信验证凭证
+     @todo API02 验证短信凭证
      */
     app.get(apiPre + '/:apiVer/registerTicket', function*() {
         this.I = yield F.Init(this, [1, 2, 3, 4, 11]);
@@ -78,7 +78,6 @@ module.exports = function (app) {
             this.jsonp = F.returnMsg(400, this.I.errors.msg, this.I.errors.level);
         } else {
             this.jsonp = yield commUser.getNoteslist(this);
-
         }
     });
 
@@ -93,7 +92,6 @@ module.exports = function (app) {
             this.jsonp = F.returnMsg(400, this.I.errors.msg, this.I.errors.level);
         } else {
             this.jsonp = yield commUser.getDirslist(this);
-
         }
     });
 
@@ -108,7 +106,6 @@ module.exports = function (app) {
             this.jsonp = F.returnMsg(400, this.I.errors.msg, this.I.errors.level);
         } else {
             this.jsonp = yield commUser.getPhotoslist(this);
-
         }
     });
 
@@ -123,7 +120,6 @@ module.exports = function (app) {
             this.jsonp = F.returnMsg(400, this.I.errors.msg, this.I.errors.level);
         } else {
             this.jsonp = yield commUser.getAdvertiselist(this);
-
         }
     });
 
