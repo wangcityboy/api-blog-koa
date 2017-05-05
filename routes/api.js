@@ -9,34 +9,9 @@ var mysql = require('../common/mysql');
 var commUser = require('../common/user');
 
 module.exports = function (app) {
+
     var self = this;
     var apiPre = C.apiPre;
-
-    /*
-     @todo API01 获取短信验证码
-     */
-    app.get(apiPre + '/:apiVer/verification', function*() {
-        this.I = yield F.Init(this, [1, 11, 2, 12]);
-        if (this.I.errors) {
-            this.jsonp = F.returnMsg(400, this.I.errors.msg, this.I.errors.level);
-        } else {
-            this.jsonp = yield commUser.sendVerification(this);
-        }
-    });
-
-    /*
-     @todo API02 验证短信凭证
-     */
-    app.get(apiPre + '/:apiVer/registerTicket', function*() {
-        this.I = yield F.Init(this, [1, 2, 3, 4, 11]);
-        if (this.I.errors) {
-            this.jsonp = F.returnMsg(400, this.I.errors.msg, this.I.errors.level);
-        } else {
-            this.jsonp = yield commUser.registerTicket(this);
-        }
-    });
-
-
 
     /*
      @todo API01 获取侧边栏菜单数据
@@ -66,6 +41,30 @@ module.exports = function (app) {
       }
   });
 
+
+    /*
+     @todo API01 获取短信验证码
+     */
+    app.get(apiPre + '/:apiVer/verification', function*() {
+        this.I = yield F.Init(this, [1, 11, 2, 12]);
+        if (this.I.errors) {
+            this.jsonp = F.returnMsg(400, this.I.errors.msg, this.I.errors.level);
+        } else {
+            this.jsonp = yield commUser.sendVerification(this);
+        }
+    });
+
+    /*
+     @todo API02 验证短信凭证
+     */
+    app.get(apiPre + '/:apiVer/registerTicket', function*() {
+        this.I = yield F.Init(this, [1, 2, 3, 4, 11]);
+        if (this.I.errors) {
+            this.jsonp = F.returnMsg(400, this.I.errors.msg, this.I.errors.level);
+        } else {
+            this.jsonp = yield commUser.registerTicket(this);
+        }
+    });
 
 
 
@@ -108,8 +107,6 @@ module.exports = function (app) {
             this.jsonp = yield commUser.getPhotoslist(this);
         }
     });
-
-
 
     /*
      @todo API01 获取广告轮播图

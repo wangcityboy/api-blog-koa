@@ -24,6 +24,17 @@ var redisCo = F.redisCo;
 
 
 /*
+ * @TODO 获取菜单分类
+ * @origin 来源: 分类ID
+ */
+exports.getMenu = function*(param){
+    let parent = yield mysql.queryOne('select * from tg_menu where tg_id = ?',[param]);
+    let child = yield mysql.query('select * from tg_menu where tg_parent = ?',[param]);
+    return {parent:parent,child:child};
+};
+
+
+/*
  *@todo  API01 广告轮播图
  * */
 exports.getAdvertiselist = function*(Env){
@@ -53,77 +64,57 @@ exports.getPhotoslist = function*(Env){
     return F.returnMsg('200', '相片列表返回成功', 3, photosData);
 }
 
-/*
- * @TODO 获取菜单分类
- * @uid
- * @origin 来源: 分类ID
- * @ip
- */
-exports.getMenu = function*(param){
-    //console.log(Env);
-    //var fields = Env.I;
-    //console.log("fields=",fields);
-    //var sid = fields.parent;
-    let par = yield mysql.queryOne('select * from tg_menu where tg_id = ?',[param]);
-    //let par = yield MUsers.getMenu("tg_id,tg_title,tg_type,tg_url,tg_topimage,tg_parent","tg_id",[param]);
-    console.log("par="+par);
-
-    //get child
-    let child = yield mysql.query('select * from tg_menu where tg_parent = ?',[param]);
-    console.log("child="+child);
-    return {parent:par,child:child};
-};
 
 /*
- *@todo  API18 日志列表
+ *@todo  API18 获取日志列表
  * */
 exports.getNoteslist = function*(Env){
     var fields = Env.I;
     var classifyid = fields.classifyid;
-    //if (classifyid == null){
-    //    classifyid = '(10007,10008,10009,10010,10011,10012,10013,10014)';
-    //}
     let noteData = yield MNotes.getNotes("tg_id,tg_username,tg_classify,tg_title,tg_content,tg_image,tg_readcount,tg_nickname,tg_date", "tg_classify=?", [classifyid]);
     return F.returnMsg('200', '日记列表返回成功', 3, noteData);
 }
 
 
 /*
- *@todo  API04 登录
+ *@todo  API04 用户登录
  * */
 exports.login = function* (Env) {
     var fields = Env.I;
     var apiVer = fields.apiVer;//版本号
     var mobile = fields.mobile;
+    console.log("mobile="+mobile);
     var password = fields.password;
     var act = fields.act;
-    let region_data = yield F.getUserCityData(Env.ip);
+    //let region_data = yield F.getUserCityData(Env.ip);
 
     if (!F.isMobile(mobile)) {//判断手机号码格式是否正确
         return F.returnMsg(400, '手机号码格式不正确', 1);
     }
-    var attemptLimit = C.login.login_attemptLimit;
-    var attempts = yield redisCo.get(C.login.login_attemptCountPrefix + mobile);
-    attempts = attempts || 0;
-    if (attempts >= attemptLimit) {
-        return F.returnMsg(400, '尝试次数过多，请等待5分钟后再试', 1);
-    }
+    //var attemptLimit = C.login.login_attemptLimit;
+    //var attempts = yield redisCo.get(C.login.login_attemptCountPrefix + mobile);
+    //attempts = attempts || 0;
+    //if (attempts >= attemptLimit) {
+    //    return F.returnMsg(400, '尝试次数过多，请等待5分钟后再试', 1);
+    //}
     var userData = yield MUsers.getUser("tg_id,tg_uniqid,tg_username,tg_password,tg_nickname,tg_mobile,tg_face", "tg_mobile=?", [mobile]);
+    console.log(userData);
+    console.log(_.str.trim(password));
     if (userData.length > 0 && userData[0]['tg_password'] == _.str.trim(password)) {
-        var newUniqid = uid2(40);
-        F.redisClient.expire('siss:user:tg_id_' + userData[0]['tg_id'], C.session.ttl);
-        F.redisClient.SETEX('siss:user:tg_uniqid_' + newUniqid, C.session.ttl, userData[0]['tg_id']);
-        yield MUsers.updateToken(userData[0]['tg_id'], newUniqid);
+        //var newUniqid = uid2(40);
+        //F.redisClient.expire('siss:user:tg_id_' + userData[0]['tg_id'], C.session.ttl);
+        //F.redisClient.SETEX('siss:user:tg_uniqid_' + newUniqid, C.session.ttl, userData[0]['tg_id']);
+        //yield MUsers.updateToken(userData[0]['tg_id'], newUniqid);
         return F.returnMsg(200, '登录成功', 3, {
             tg_id: userData[0]['tg_id'],
-            tg_uniqid: newUniqid,
+            //tg_uniqid: newUniqid,
             tg_nickname: userData[0]['tg_nickname'],
         });
     }
 };
 
 /*
- *@todo  API05 登出
+ *@todo  API05 用户退出登录
  */
 exports.logout = function*(Env) {
     var fields = Env.I;

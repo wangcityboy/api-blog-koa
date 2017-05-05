@@ -5,6 +5,23 @@
 
 var mysql = require('../common/mysql.js');
 
+
+/*
+ @todo 获取用户菜单列表
+ @fields 修改字段 格式为field1=?，field2=?...
+ @where  查找条件 格式为field1=? and field=?
+ @values 条件值   格式为[value1，value2]
+ */
+exports.getMenu = function*(fields, where, values) {
+    var data = yield mysql.queryOne("select " + fields + " from tg_menu where " + where, values);
+    if (data.affectedRows > 0) {
+        return data;
+    }
+    return [];
+};
+
+
+
 /*
  @todo 获取用户信息
  @fields 查找字段 格式为field1，field2...
@@ -35,19 +52,7 @@ exports.editUser = function*(fields, where, values) {
 };
 
 
-/*
- @todo 获取用户菜单列表
- @fields 修改字段 格式为field1=?，field2=?...
- @where  查找条件 格式为field1=? and field=?
- @values 条件值   格式为[value1，value2]
- */
-exports.getMenu = function*(fields, where, values) {
-    var data = yield mysql.query("select " + fields + " from tg_menu where " + where, values);
-    if (data.affectedRows > 0) {
-        return data;
-    }
-    return [];
-};
+
 
 /*
  @todo 获取广告轮播图

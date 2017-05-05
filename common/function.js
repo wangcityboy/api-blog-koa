@@ -38,7 +38,7 @@ exports.redisCo = redisCo;
 exports.redisClient = redisClient;
 
 /*
- @todo 取得到秒的时间戳
+ @todo 取到秒的时间戳
  函数名：timestamp
  * 参数：无
  * 返回：当前时间的10位UNIX时间戳
@@ -80,7 +80,7 @@ exports.beginTimestamp = function (time1) {
     return parseInt(new Date(newDate.format('yyyy-MM-dd') + ' 0:0:0 CST+800').getTime() / 1000);
 };
 
-// 计算日期间隔 单位秒,time1 比 time2 晚时为负数
+// 计算日期间隔 单位秒,time1 比 time2 晚时则为负数
 exports.dateDiff = function (time1, time2) {
     time1 = this.beginTimestamp(time1); // 计算某天的起始时间戳
     time2 = this.beginTimestamp(time2); // 计算某天的起始时间戳
@@ -344,7 +344,7 @@ exports.getRandom = function (len) {
 
 
 /*
- isJson 尝试判断字符串是否为json类型。返回json对象或false
+ isJson 判断字符串是否为json类型。返回json对象或false
  */
 function isJson(str) {
     try {
